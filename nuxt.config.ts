@@ -5,7 +5,6 @@ export default defineNuxtConfig({
 	future: { compatibilityVersion: 4 },
 	build: { transpile: ['vuetify'] },
 	imports: { dirs: ['./stores'] },
-
 	apollo: {
 		autoImports: true,
 		proxyCookies: true,

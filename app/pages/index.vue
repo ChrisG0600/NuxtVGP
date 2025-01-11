@@ -1,121 +1,251 @@
 <template>
-	<v-container>
-		<h2>
-			<v-icon icon="mdi-vuetify" />
-			Starter Template
-		</h2>
-		<h5>Nuxt 3 / Vuetify / Graphql / Pinia</h5>
-		<h3 class="my-5">
-			Example Pinia
-			<v-chip color="blue">useCounter</v-chip>
-		</h3>
-		<v-card class="mx-auto my-12" max-width="374">
-			<v-card-title class="text-blue">Pinia useCounter()</v-card-title>
-			<v-card-item>
-				<v-card-text>
-					<v-chip>count:</v-chip>
-					{{ store.count }}
-				</v-card-text>
-				<v-card-text>
-					<v-chip>doubleCount:</v-chip>
-					{{ store.doubleCount }}
-				</v-card-text>
-			</v-card-item>
+    <v-container class="wrapper">
+        <!-- Sort Order and Year Buttons -->
+        <v-row>
+            <v-col cols="12" sm="4">
+                <v-btn @click="toggleYearSortOrder" class="mb-2" outlined>
+                    Sort Years ({{ yearSortOrder === 'asc' ? 'Ascending' : 'Descending' }})
+                </v-btn>
+            </v-col>
+        </v-row>
 
-			<v-card-actions><v-btn color="blue" @click="store.increment()">Increment</v-btn></v-card-actions>
-		</v-card>
+        <!-- Year Buttons -->
+        <v-row>
+            <v-col cols="12" sm="4" v-for="year in sortedYears" :key="year">
+                <v-btn @click="selectYear(year)" class="mb-2" outlined>{{ year }}</v-btn>
+            </v-col>
+        </v-row>
 
-		<h3 class="my-5">
-			Example Vuetify
-			<v-chip color="blue">Card</v-chip>
-		</h3>
-		<v-card class="mx-auto my-12" max-width="374">
-			<template #progress>
-				<v-progress-linear color="deep-purple" height="10" indeterminate />
-			</template>
+        <!-- Cards for Selected Year -->
+        <v-row v-if="selectedYear">
+            <v-col cols="12">
+                <h2>Launches for {{ selectedYear }}</h2>
+            </v-col>
+            <v-col cols="12" sm="6" md="4" v-for="launch in sortedLaunches" :key="launch.mission_name">
+                <v-card class="mx-auto launch-card" max-width="400">
+                    <v-card-title>
+                        {{ launch.mission_name }}
+                        <v-icon small :class="favoriteIconClass(launch)" @click="toggleFavorite(launch)">
+                            {{ favoriteIcon(launch) }}
+                        </v-icon>
+                    </v-card-title>
+                    <v-card-subtitle>{{ launch.launch_date }}</v-card-subtitle>
+                    <v-card-text>
+                        <p><strong>Launch Site:</strong> {{ launch.launch_site }}</p>
+                        <p>
+                            <strong>Rocket Name:</strong>
+                            {{ launch.rocket_name }}
+                            <v-icon small @click="openRocketDetails(launch.rocket)">mdi-information-outline</v-icon>
+                        </p>
+                        <div>
+                            {{ !expandedDetails[launch.mission_name]
+                                ? launch.details.slice(0, 100) + (launch.details.length > 100 ? '...' : '')
+                                : launch.details
+                            }}
+                            <span v-if="launch.details.length > 100" @click="toggleDetails(launch.mission_name)"
+                                class="text-primary cursor-pointer">
+                                {{ expandedDetails[launch.mission_name] ? 'See Less' : 'See More' }}
+                            </span>
+                        </div>
+                    </v-card-text>
+                </v-card>
+            </v-col>
+        </v-row>
 
-			<v-img height="250" src="https://cdn.vuetifyjs.com/images/cards/cooking.png" />
-
-			<v-card-title>Cafe Badilico</v-card-title>
-
-			<v-card-text>
-				<v-row align="center" class="mx-0">
-					<ClientOnly>
-						<v-rating :value="4.5" color="amber" dense half-increments readonly size="14" />
-						<div class="grey--text ms-4">4.5 (413)</div>
-					</ClientOnly>
-				</v-row>
-
-				<div class="my-4 text-subtitle-1">$ • Italian, Cafe</div>
-
-				<div>
-					Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio
-					seating.
-				</div>
-			</v-card-text>
-
-			<v-divider class="mx-4" />
-
-			<v-card-title>Tonight's availability</v-card-title>
-
-			<v-card-text>
-				<v-chip-group v-model="selection" active-class="deep-purple accent-4 white--text" column>
-					<v-chip>5:30PM</v-chip>
-
-					<v-chip>7:30PM</v-chip>
-
-					<v-chip>8:00PM</v-chip>
-
-					<v-chip>9:00PM</v-chip>
-				</v-chip-group>
-			</v-card-text>
-
-			<v-card-actions>
-				<v-btn color="deep-purple lighten-2">Reserve</v-btn>
-			</v-card-actions>
-		</v-card>
-		<h3 class="my-5">
-			Example Vuetify
-			<v-chip color="blue">SimpleTable</v-chip>
-			<v-chip color="orange">Data from spaceX graphql</v-chip>
-		</h3>
-		<p>There are {{ ships?.length || 0 }} ships.</p>
-		<v-table>
-			<thead>
-				<tr>
-					<th class="text-left">Name</th>
-					<th class="text-left">Active</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr v-for="ship in ships" :key="ship.name">
-					<td>{{ ship.name }}</td>
-					<td>
-						<v-chip :color="ship.active ? 'green' : 'red'">{{ ship.active }}</v-chip>
-					</td>
-				</tr>
-			</tbody>
-		</v-table>
-	</v-container>
+        <!-- Modal for Rocket Details -->
+        <v-dialog v-model="isModalOpen" max-width="600px">
+            <v-card>
+                <v-card-title>
+                    {{ selectedRocket.name }}
+                    <v-spacer></v-spacer>
+                </v-card-title>
+                <v-card-text>
+                    <p><strong>Description:</strong> {{ selectedRocket.description }}</p>
+                    <p><strong>First Flight:</strong> {{ selectedRocket.first_flight }}</p>
+                    <p><strong>Height:</strong> {{ selectedRocket.height.meters }} meters ({{ selectedRocket.height.feet
+                        }} feet)</p>
+                    <p><strong>Diameter:</strong> {{ selectedRocket.diameter.meters }} meters ({{
+                        selectedRocket.diameter.feet }} feet)</p>
+                    <p><strong>Mass:</strong> {{ selectedRocket.mass.kg }} kg ({{ selectedRocket.mass.lb }} lb)</p>
+                    <p><strong>Stages:</strong> {{ selectedRocket.stages }}</p>
+                </v-card-text>
+                <v-card-actions>
+                    <v-btn color="primary" text @click="closeModal">Close</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+    </v-container>
 </template>
-<script lang="ts" setup>
-const store = useCounter()
-const selection = ref(0)
-const query = gql`
-	query getShips {
-		ships {
-			id
-			name
-			active
-		}
-	}
-`
-const { data } = useAsyncQuery<{
-	ships: {
-		id: string
-		name: string
-		active: boolean
-	}[]
-}>(query)
-const ships = computed(() => data.value?.ships ?? [])
+
+<script setup>
+import { ref, computed, watchEffect } from 'vue';
+import { gql } from 'graphql-tag';
+import { useQuery } from '@vue/apollo-composable';
+import { useFavoritesStore } from '../stores/favoriteStore';
+
+const launches = ref([]);
+const expandedDetails = ref({});
+const selectedYear = ref(null);
+const yearSortOrder = ref('asc'); // Default sort order for years: ascending
+const sortOrder = ref('asc'); // Default sort order for launches: ascending
+const isModalOpen = ref(false);
+const selectedRocket = ref({}); // To store the selected rocket details
+
+
+
+// Use Pinia store
+const favoritesStore = useFavoritesStore();
+
+const toggleDetails = (missionName) => {
+    expandedDetails.value[missionName] = !expandedDetails.value[missionName];
+};
+
+const GET_LAUNCHES = gql`
+  query GetLaunches {
+    launchesPast(limit: 50) {
+      id
+      mission_name
+      launch_date_utc
+      launch_site {
+        site_name_long
+      }
+      rocket {
+        rocket_name
+        rocket {
+          name
+          description
+          first_flight
+          height {
+            meters
+            feet
+          }
+          diameter {
+            meters
+            feet
+          }
+          mass {
+            kg
+            lb
+          }
+          stages
+        }
+      }
+      details
+    }
+  }
+`;
+
+const { result } = useQuery(GET_LAUNCHES);
+
+const convertUTCToLocalDate = (utcDate) => {
+    if (!utcDate) return 'N/A';
+    const localDate = new Date(utcDate);
+    return localDate.toLocaleDateString();
+};
+
+watchEffect(() => {
+    if (result.value && result.value.launchesPast) {
+        launches.value = result.value.launchesPast.map((launch) => ({
+            id: launch.id, // Ensure ID is mapped for favorites
+            mission_name: launch.mission_name || 'N/A',
+            launch_date: convertUTCToLocalDate(launch.launch_date_utc),
+            launch_site: launch.launch_site?.site_name_long || 'N/A',
+            rocket_name: launch.rocket?.rocket_name || 'N/A',
+            rocket: launch.rocket?.rocket || {}, // Add rocket details to each launch
+            details: launch.details || 'No details available',
+        }));
+    }
+});
+
+const uniqueYears = computed(() => {
+    const years = launches.value.map(launch => new Date(launch.launch_date).getFullYear());
+    return [...new Set(years)];
+});
+
+const sortedYears = computed(() => {
+    const sorted = [...uniqueYears.value];
+    sorted.sort((a, b) => {
+        if (yearSortOrder.value === 'asc') {
+            return a - b;
+        } else {
+            return b - a;
+        }
+    });
+    return sorted;
+});
+
+const filteredLaunches = computed(() => {
+    if (!selectedYear.value) {
+        return launches.value;
+    }
+    return launches.value.filter((launch) =>
+        new Date(launch.launch_date).getFullYear() === selectedYear.value
+    );
+});
+
+const sortedLaunches = computed(() => {
+    const sorted = [...filteredLaunches.value];
+    sorted.sort((a, b) => {
+        if (sortOrder.value === 'asc') {
+            return new Date(a.launch_date) - new Date(b.launch_date);
+        } else {
+            return new Date(b.launch_date) - new Date(a.launch_date);
+        }
+    });
+    return sorted;
+});
+
+const toggleYearSortOrder = () => {
+    yearSortOrder.value = yearSortOrder.value === 'asc' ? 'desc' : 'asc';
+};
+
+const openRocketDetails = (rocket) => {
+    selectedRocket.value = rocket;
+    isModalOpen.value = true;
+};
+
+const closeModal = () => {
+    isModalOpen.value = false;
+};
+
+const selectYear = (year) => {
+    selectedYear.value = year;
+};
+
+const toggleFavorite = (launch) => {
+    const isFavorite = favoritesStore.favoriteLaunches.some(fav => fav.id === launch.id);
+    if (isFavorite) {
+        favoritesStore.removeFavorite(launch);
+    } else {
+        favoritesStore.addFavorite(launch);
+    }
+};
+
+const favoriteIconClass = (launch) => {
+    return favoritesStore.favoriteLaunches.some(fav => fav.id === launch.id) ? 'red--text' : 'grey--text';
+};
+
+const favoriteIcon = (launch) => {
+    return favoritesStore.favoriteLaunches.some(fav => fav.id === launch.id) ? 'mdi-heart' : 'mdi-heart-outline';
+};
 </script>
+
+
+<style scoped>
+.wrapper {
+    margin-top: 8rem;
+    margin-bottom: 8.5rem;
+}
+
+.launch-card {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.red--text {
+    color: #f44336;
+}
+
+.grey--text {
+    color: #9e9e9e;
+}
+</style>

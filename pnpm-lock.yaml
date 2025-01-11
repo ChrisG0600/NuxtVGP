@@ -8,18 +8,24 @@ importers:
 
   .:
     dependencies:
+      '@apollo/client':
+        specifier: ^3.12.4
+        version: 3.12.4(graphql-ws@5.16.0(graphql@16.10.0))(graphql@16.10.0)
       '@mdi/font':
-        specifier: ^7.2.96
+        specifier: ^7.4.47
         version: 7.4.47
       '@pinia/nuxt':
         specifier: ^0.5.1
         version: 0.5.5(magicast@0.3.5)(rollup@4.25.0)(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3))
+      '@vue/apollo-composable':
+        specifier: ^4.2.1
+        version: 4.2.1(@apollo/client@3.12.4(graphql-ws@5.16.0(graphql@16.10.0))(graphql@16.10.0))(graphql@16.10.0)(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3))
+      graphql:
+        specifier: ^16.10.0
+        version: 16.10.0
       sass:
         specifier: ^1.68.0
         version: 1.80.6
-      vuetify:
-        specifier: ^3.3.23
-        version: 3.7.4(typescript@5.6.3)(vite-plugin-vuetify@2.0.4)(vue@3.5.12(typescript@5.6.3))
     devDependencies:
       '@antfu/eslint-config':
         specifier: ^3.8.0
@@ -66,6 +72,9 @@ importers:
       vite-plugin-vuetify:
         specifier: ^2.0.4
         version: 2.0.4(vite@5.4.11(@types/node@22.9.0)(sass@1.80.6)(terser@5.36.0))(vue@3.5.12(typescript@5.6.3))(vuetify@3.7.4)
+      vuetify:
+        specifier: ^3.7.4
+        version: 3.7.4(typescript@5.6.3)(vite-plugin-vuetify@2.0.4)(vue@3.5.12(typescript@5.6.3))
 
 packages:
 
@@ -125,13 +134,13 @@ packages:
   '@antfu/utils@0.7.10':
     resolution: {integrity: sha512-+562v9k4aI80m1+VuMHehNJWLOFjBnXn3tdOitzD0il5b7smkSBal4+a3oKiQTbrwMmN/TBUMDvbdoWDehgOww==}
 
-  '@apollo/client@3.11.9':
-    resolution: {integrity: sha512-aQ6VL+CPO1G4DLS/3FelfA+nl+ZQCP5qeN1NS6J8xh9wumUM/2W1ccneqCYmbTMDtoSunxE1BV2W6u0FF4axwQ==}
+  '@apollo/client@3.12.4':
+    resolution: {integrity: sha512-S/eC9jxEW9Jg1BjD6AZonE1fHxYuvC3gFHop8FRQkUdeK63MmBD5r0DOrN2WlJbwha1MSD6A97OwXwjaujEQpA==}
     peerDependencies:
       graphql: ^15.0.0 || ^16.0.0
       graphql-ws: ^5.5.5
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || >=19.0.0-rc <19.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || >=19.0.0-rc <19.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || >=19.0.0-rc
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || >=19.0.0-rc
       subscriptions-transport-ws: ^0.9.0 || ^0.11.0
     peerDependenciesMeta:
       graphql-ws:
@@ -2624,8 +2633,8 @@ packages:
     peerDependencies:
       graphql: '>=0.11 <=16'
 
-  graphql@16.9.0:
-    resolution: {integrity: sha512-GGTKBX4SD7Wdb8mqeDLni2oaRGYQWjWHGKPQ24ZMnUtKfcsVoiv4uX8+LJr1K6U5VW2Lu1BwJnj7uiori0YtRw==}
+  graphql@16.10.0:
+    resolution: {integrity: sha512-AjqGKbDGUFRKIRCP9tCKiIGHyriz2oHEbPIbEtcSLSs4YjReZOIPQQWek4+6hjw62H9QShXHyaGivGiYVLeYFQ==}
     engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
 
   gzip-size@7.0.0:
@@ -4988,14 +4997,14 @@ snapshots:
 
   '@antfu/utils@0.7.10': {}
 
-  '@apollo/client@3.11.9(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0)':
+  '@apollo/client@3.12.4(graphql-ws@5.16.0(graphql@16.10.0))(graphql@16.10.0)':
     dependencies:
-      '@graphql-typed-document-node/core': 3.2.0(graphql@16.9.0)
+      '@graphql-typed-document-node/core': 3.2.0(graphql@16.10.0)
       '@wry/caches': 1.0.1
       '@wry/equality': 0.5.7
       '@wry/trie': 0.5.0
-      graphql: 16.9.0
-      graphql-tag: 2.12.6(graphql@16.9.0)
+      graphql: 16.10.0
+      graphql-tag: 2.12.6(graphql@16.10.0)
       hoist-non-react-statics: 3.3.2
       optimism: 0.18.0
       prop-types: 15.8.1
@@ -5006,7 +5015,7 @@ snapshots:
       tslib: 2.8.1
       zen-observable-ts: 1.2.5
     optionalDependencies:
-      graphql-ws: 5.16.0(graphql@16.9.0)
+      graphql-ws: 5.16.0(graphql@16.10.0)
     transitivePeerDependencies:
       - '@types/react'
 
@@ -5486,9 +5495,9 @@ snapshots:
     dependencies:
       levn: 0.4.1
 
-  '@graphql-typed-document-node/core@3.2.0(graphql@16.9.0)':
+  '@graphql-typed-document-node/core@3.2.0(graphql@16.10.0)':
     dependencies:
-      graphql: 16.9.0
+      graphql: 16.10.0
 
   '@humanfs/core@0.19.1': {}
 
@@ -5796,16 +5805,16 @@ snapshots:
 
   '@nuxtjs/apollo@5.0.0-alpha.14(magicast@0.3.5)(rollup@4.25.0)(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3))':
     dependencies:
-      '@apollo/client': 3.11.9(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0)
+      '@apollo/client': 3.12.4(graphql-ws@5.16.0(graphql@16.10.0))(graphql@16.10.0)
       '@nuxt/kit': 3.14.159(magicast@0.3.5)(rollup@4.25.0)
-      '@rollup/plugin-graphql': 2.0.5(graphql@16.9.0)(rollup@4.25.0)
-      '@vue/apollo-composable': 4.2.1(@apollo/client@3.11.9(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0))(graphql@16.9.0)(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3))
-      '@vue/apollo-option': 4.2.0(@apollo/client@3.11.9(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0))(vue@3.5.12(typescript@5.6.3))
+      '@rollup/plugin-graphql': 2.0.5(graphql@16.10.0)(rollup@4.25.0)
+      '@vue/apollo-composable': 4.2.1(@apollo/client@3.12.4(graphql-ws@5.16.0(graphql@16.10.0))(graphql@16.10.0))(graphql@16.10.0)(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3))
+      '@vue/apollo-option': 4.2.0(@apollo/client@3.12.4(graphql-ws@5.16.0(graphql@16.10.0))(graphql@16.10.0))(vue@3.5.12(typescript@5.6.3))
       defu: 6.1.4
       destr: 2.0.3
-      graphql: 16.9.0
-      graphql-tag: 2.12.6(graphql@16.9.0)
-      graphql-ws: 5.16.0(graphql@16.9.0)
+      graphql: 16.10.0
+      graphql-tag: 2.12.6(graphql@16.10.0)
+      graphql-ws: 5.16.0(graphql@16.10.0)
       jiti: 1.21.6
       ohash: 1.1.4
     transitivePeerDependencies:
@@ -5948,11 +5957,11 @@ snapshots:
     optionalDependencies:
       rollup: 4.25.0
 
-  '@rollup/plugin-graphql@2.0.5(graphql@16.9.0)(rollup@4.25.0)':
+  '@rollup/plugin-graphql@2.0.5(graphql@16.10.0)(rollup@4.25.0)':
     dependencies:
       '@rollup/pluginutils': 5.1.3(rollup@4.25.0)
-      graphql: 16.9.0
-      graphql-tag: 2.12.6(graphql@16.9.0)
+      graphql: 16.10.0
+      graphql-tag: 2.12.6(graphql@16.10.0)
     optionalDependencies:
       rollup: 4.25.0
 
@@ -6273,10 +6282,10 @@ snapshots:
     transitivePeerDependencies:
       - rollup
 
-  '@vue/apollo-composable@4.2.1(@apollo/client@3.11.9(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0))(graphql@16.9.0)(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3))':
+  '@vue/apollo-composable@4.2.1(@apollo/client@3.12.4(graphql-ws@5.16.0(graphql@16.10.0))(graphql@16.10.0))(graphql@16.10.0)(typescript@5.6.3)(vue@3.5.12(typescript@5.6.3))':
     dependencies:
-      '@apollo/client': 3.11.9(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0)
-      graphql: 16.9.0
+      '@apollo/client': 3.12.4(graphql-ws@5.16.0(graphql@16.10.0))(graphql@16.10.0)
+      graphql: 16.10.0
       throttle-debounce: 5.0.2
       ts-essentials: 9.4.2(typescript@5.6.3)
       vue: 3.5.12(typescript@5.6.3)
@@ -6284,9 +6293,9 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@vue/apollo-option@4.2.0(@apollo/client@3.11.9(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0))(vue@3.5.12(typescript@5.6.3))':
+  '@vue/apollo-option@4.2.0(@apollo/client@3.12.4(graphql-ws@5.16.0(graphql@16.10.0))(graphql@16.10.0))(vue@3.5.12(typescript@5.6.3))':
     dependencies:
-      '@apollo/client': 3.11.9(graphql-ws@5.16.0(graphql@16.9.0))(graphql@16.9.0)
+      '@apollo/client': 3.12.4(graphql-ws@5.16.0(graphql@16.10.0))(graphql@16.10.0)
       throttle-debounce: 5.0.2
       vue: 3.5.12(typescript@5.6.3)
 
@@ -6402,7 +6411,7 @@ snapshots:
 
   '@vue/shared@3.5.12': {}
 
-  '@vuetify/loader-shared@2.0.3(vue@3.5.12(typescript@5.6.3))(vuetify@3.7.4(typescript@5.6.3)(vite-plugin-vuetify@2.0.4)(vue@3.5.12(typescript@5.6.3)))':
+  '@vuetify/loader-shared@2.0.3(vue@3.5.12(typescript@5.6.3))(vuetify@3.7.4)':
     dependencies:
       upath: 2.0.1
       vue: 3.5.12(typescript@5.6.3)
@@ -7785,16 +7794,16 @@ snapshots:
 
   graphemer@1.4.0: {}
 
-  graphql-tag@2.12.6(graphql@16.9.0):
+  graphql-tag@2.12.6(graphql@16.10.0):
     dependencies:
-      graphql: 16.9.0
+      graphql: 16.10.0
       tslib: 2.8.1
 
-  graphql-ws@5.16.0(graphql@16.9.0):
+  graphql-ws@5.16.0(graphql@16.10.0):
     dependencies:
-      graphql: 16.9.0
+      graphql: 16.10.0
 
-  graphql@16.9.0: {}
+  graphql@16.10.0: {}
 
   gzip-size@7.0.0:
     dependencies:
@@ -10218,7 +10227,7 @@ snapshots:
 
   vite-plugin-vuetify@2.0.4(vite@5.4.11(@types/node@22.9.0)(sass@1.80.6)(terser@5.36.0))(vue@3.5.12(typescript@5.6.3))(vuetify@3.7.4):
     dependencies:
-      '@vuetify/loader-shared': 2.0.3(vue@3.5.12(typescript@5.6.3))(vuetify@3.7.4(typescript@5.6.3)(vite-plugin-vuetify@2.0.4)(vue@3.5.12(typescript@5.6.3)))
+      '@vuetify/loader-shared': 2.0.3(vue@3.5.12(typescript@5.6.3))(vuetify@3.7.4)
       debug: 4.3.7(supports-color@9.4.0)
       upath: 2.0.1
       vite: 5.4.11(@types/node@22.9.0)(sass@1.80.6)(terser@5.36.0)
