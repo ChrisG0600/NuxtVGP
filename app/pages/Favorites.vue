@@ -1,4 +1,5 @@
 <template>
+    <title>SpaceX Favorites</title>
     <v-container class="wrapper">
         <div class="icon-container">
             <v-icon class="icon">mdi-wrench</v-icon>

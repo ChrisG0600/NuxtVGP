@@ -1,4 +1,5 @@
 <template>
+    <title>SpaceX</title>
     <v-container class="wrapper">
         <!-- Sort Order and Year Buttons -->
         <v-row>
