@@ -36,7 +36,6 @@
     margin-bottom: 20px;
     font-size: 10rem;
     color: #282828;
-    /* Gold color */
 }
 
 .description {
@@ -47,7 +46,6 @@
 
 .nav-link {
     background-color: #6f42c1;
-    /* Space-themed color */
     padding: 10px 20px;
     color: whitesmoke;
     border-radius: 5px;

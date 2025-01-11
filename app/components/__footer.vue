@@ -13,7 +13,7 @@
 
 <style scoped>
 .footer {
-    color: white; /* Text color */
+    color: white;
     padding: 10px;
 }
 </style>

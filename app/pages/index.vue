@@ -86,10 +86,10 @@ import { useFavoritesStore } from '../stores/favoriteStore';
 const launches = ref([]);
 const expandedDetails = ref({});
 const selectedYear = ref(null);
-const yearSortOrder = ref('asc'); // Default sort order for years: ascending
-const sortOrder = ref('asc'); // Default sort order for launches: ascending
+const yearSortOrder = ref('asc');
+const sortOrder = ref('asc');
 const isModalOpen = ref(false);
-const selectedRocket = ref({}); // To store the selected rocket details
+const selectedRocket = ref({});
 
 
 
@@ -146,12 +146,12 @@ const convertUTCToLocalDate = (utcDate) => {
 watchEffect(() => {
     if (result.value && result.value.launchesPast) {
         launches.value = result.value.launchesPast.map((launch) => ({
-            id: launch.id, // Ensure ID is mapped for favorites
+            id: launch.id,
             mission_name: launch.mission_name || 'N/A',
             launch_date: convertUTCToLocalDate(launch.launch_date_utc),
             launch_site: launch.launch_site?.site_name_long || 'N/A',
             rocket_name: launch.rocket?.rocket_name || 'N/A',
-            rocket: launch.rocket?.rocket || {}, // Add rocket details to each launch
+            rocket: launch.rocket?.rocket || {},
             details: launch.details || 'No details available',
         }));
     }

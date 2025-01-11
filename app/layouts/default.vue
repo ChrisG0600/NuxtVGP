@@ -1,8 +1,8 @@
 <template>
     <v-app>
         <Navbar />
-        <RouterView class="wrapper" /> <!-- This will render the matched route component -->
-        <Footer /> <!-- Ensure Footer is placed inside v-app -->
+        <RouterView class="wrapper" />
+        <Footer />
     </v-app>
 </template>
 

@@ -25,21 +25,21 @@ interface Launch {
 
 export const useFavoritesStore = defineStore('favorites', {
 	state: () => ({
-		favoriteLaunches: [] as Launch[], // Explicitly define the type of favoriteLaunches
+		favoriteLaunches: [] as Launch[], 
 	}),
 	actions: {
 		// Add a launch to favorites
 		addFavorite(launch: Launch) {
 			if (!this.favoriteLaunches.some((fav) => fav.id === launch.id)) {
 				this.favoriteLaunches.push(launch)
-				console.log('Added launch to favorites:', launch) // Debug: Log added launch
+				console.log('Added launch to favorites:', launch) 
 			}
 		},
 
 		// Remove a launch from favorites
 		removeFavorite(launch: Launch) {
 			this.favoriteLaunches = this.favoriteLaunches.filter((fav) => fav.id !== launch.id)
-			console.log('Removed launch from favorites:', launch) // Debug: Log removed launch
+			console.log('Removed launch from favorites:', launch)
 		},
 	},
 })
