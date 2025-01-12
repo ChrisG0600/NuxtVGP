@@ -45,9 +45,9 @@
                 <v-card-text>
                     <p><strong>Description:</strong> {{ selectedRocket.description }}</p>
                     <p><strong>First Flight:</strong> {{ selectedRocket.first_flight }}</p>
-                    <p><strong>Height:</strong> {{ selectedRocket.height.feet }} feet</p>
-                    <p><strong>Diameter:</strong> {{ selectedRocket.diameter.feet }} feet</p>
-                    <p><strong>Mass:</strong> {{ selectedRocket.mass.kg }} kg</p>
+                    <p><strong>Height:</strong> {{ selectedRocket.height.meters }} meters ({{ selectedRocket.height.feet }} feet)</p>
+                    <p><strong>Diameter:</strong> {{ selectedRocket.diameter.meters }} meters ({{ selectedRocket.diameter.feet }} feet)</p>
+                    <p><strong>Mass:</strong> {{ selectedRocket.mass.kg }} kg ({{ selectedRocket.mass.lb }} lb)</p>
                     <p><strong>Stages:</strong> {{ selectedRocket.stages }}</p>
                 </v-card-text>
                 <v-card-actions>
