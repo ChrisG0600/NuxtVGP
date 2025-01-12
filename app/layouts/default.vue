@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <Navbar />
-        <RouterView class="wrapper" />
+        <RouterView class="content_space" />
         <Footer />
     </v-app>
 </template>
@@ -13,7 +13,7 @@
 </script>
 
 <style scoped>
-.wrapper {
-    min-height: 100vh;
+.content_space{
+    margin:5rem 0;
 }
 </style>

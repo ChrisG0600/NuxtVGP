@@ -1,15 +1,12 @@
 <template>
     <title>SpaceX</title>
     <v-container class="wrapper">
-        <!-- Sort Order and Year Buttons -->
-        <v-row>
-            <v-col cols="12" sm="4">
-                <v-btn @click="toggleYearSortOrder" class="mb-2" outlined>
-                    Sort Years ({{ yearSortOrder === 'asc' ? 'Ascending' : 'Descending' }})
-                </v-btn>
-            </v-col>
-        </v-row>
-
+        <!--Header, Sort Order and Year Buttons -->
+        <h5 class="header">List of SpaceX Mission
+            <v-btn @click="toggleYearSortOrder" class="sort-years" outlined>
+                Sort Years ({{ yearSortOrder === 'asc' ? 'Ascending' : 'Descending' }})
+            </v-btn>
+        </h5>
         <!-- Year Buttons -->
         <v-row>
             <v-col cols="12" sm="4" v-for="year in sortedYears" :key="year">
@@ -223,7 +220,7 @@ const toggleFavorite = (launch) => {
 };
 
 const favoriteIconClass = (launch) => {
-    return favoritesStore.favoriteLaunches.some(fav => fav.id === launch.id) ? 'red--text' : 'grey--text';
+    return favoritesStore.favoriteLaunches.some(fav => fav.id === launch.id) ? 'text-error' : 'grey--text';
 };
 
 const favoriteIcon = (launch) => {
@@ -234,16 +231,20 @@ const favoriteIcon = (launch) => {
 
 <style scoped>
 .wrapper {
-    margin-top: 8rem;
-    margin-bottom: 8.5rem;
+    margin:8rem 10% 8.5rem;
+}
+
+.header{
+    font-size: 24px;
+    margin:1rem 0;
+}
+
+.sort-years{
+    margin-left: 35%;
 }
 
 .launch-card {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-
-.red--text {
-    color: #f44336;
 }
 
 .grey--text {
